@@ -30,8 +30,11 @@ def StartRealSense():
     else:
         config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
 
+    align_to = rs.stream.color #see https://github.com/IntelRealSense/librealsense/issues/2481
+    align = rs.align(align_to)
+
     # Start streaming
     pipeline.start(config)
-    return(pipeline)
+    return(pipeline, align)
 
 
