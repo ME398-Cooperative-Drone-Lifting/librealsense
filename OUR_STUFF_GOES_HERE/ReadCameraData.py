@@ -1,12 +1,17 @@
 import pyrealsense2 as rs
 import numpy as np
 import cv2
+#from PIL import Image
 
 #setup Aruco Detector and which marker
+#arucoDict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_4X4_50) #https://chev.me/arucogen/
 arucoDict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_4X4_50) #https://chev.me/arucogen/
+
 # we will use marker 0 of the dictionary, 50 cm^2
 arucoParams = cv2.aruco.DetectorParameters() # use default detect params
-detector = cv2.aruco.ArucoDetector(arucoDict,arucoParams,)
+#refParams = cv2.aruco.RefineParameters()
+#detector = cv2.aruco.ArucoDetector(arucoDict,arucoParams,refParams)
+detector = cv2.aruco.ArucoDetector(arucoDict,arucoParams)
 
 imageResized = False
 
@@ -71,18 +76,32 @@ try:
         # Show images
         cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
         cv2.imshow('RealSense', images)
-        
+
+        '''
         corners = []
         ids = np.array([])
         rejected = []
-        
+        ''' 
+
         if imageResized:
             arucoimage = resized_color_image
+            #arucoimage = cv2.Mat(resized_color_image)
+        #     #arucoimage = Image.fromarray(resized_color_image)
+        #     #arucoimage = cv2.imdecode(resized_color_image, cv2.IMREAD_UNCHANGED)
+        #     cv2.imwrite('temp_image.png',resized_color_image)
         else:
             arucoimage = color_image
+            #arucoimage = cv2.Mat(color_image)
+        #     #arucoimage = cv2.imdecode(color_image, cv2.IMREAD_UNCHANGED)
+        #     #arucoimage = Image.fromarray(color_image)
+        #     cv2.imwrite('temp_image.png',color_image)
+        # #arucoimage = cv2.imdecode(arucoimage, cv2.IMREAD_UNCHANGED)
+        # arucoimage = cv2.imread('temp_image.png')
 
-        (corners, ids, rejected) = cv2.aruco.ArucoDetector.detectMarkers(arucoimage, arucoDict,parameters = arucoParams) #get corners of aruco markers
-        #if len(corners) == 1:
+
+
+        #(corners, ids, rejected) = cv2.aruco.ArucoDetector.detectMarkers(detector, arucoimage,arucoDict,parameters = arucoParams) #get corners of aruco markers
+        (corners, ids, rejected) = cv2.aruco.ArucoDetector.detectMarkers(detector, arucoimage)        #if len(corners) == 1:
         print("corners")
         print(corners)
         print("IDs")
