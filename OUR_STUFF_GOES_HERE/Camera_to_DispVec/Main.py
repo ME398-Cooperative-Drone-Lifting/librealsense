@@ -55,9 +55,9 @@ try:
             arucoimage = color_image
 
         (corners, ids, rejected) = cv2.aruco.ArucoDetector.detectMarkers(detector, arucoimage)
-        print("corners")
-        print(corners)
-        print("IDs")
+        #print("corners")
+        #print(corners)
+        print("\n\n\nIDs")
         print(ids)
 
         # Show images
@@ -65,8 +65,25 @@ try:
         cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
         cv2.imshow('RealSense', images)
         '''
+
+        #error handlin for evaling if non type or if list to see if obj detected
+        try:
+            if (ids!= None): 
+                detected = True
+            else:
+                detected = False
+        except:
+            if len(ids)>= 1:
+                detected = False # If we detect more than 1 aruco, problem, dont mark them
+            '''
+            if len(ids)>1:
+                multiple = True
         
-        if ids != None:   
+        if multiple:
+            continue
+        '''
+
+        if detected:   
             #marking corners and center of aruco
             markedImage = cv2.aruco.drawDetectedMarkers(arucoimage, corners, ids)
             marker_center = Center(corners)
@@ -90,19 +107,20 @@ try:
             #displaying aruco marked image
             disp_image = np.hstack((markedImage, depth_colormap))
 
-            #wait for user input before reading next frame
-            '''
-            temp = input("Type quit to exit, press enter to load next frame\n")
-            if temp == "quit":
-                break
-            '''
+            
         else:
             disp_image = np.hstack((color_image, depth_colormap))
         
         cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
         cv2.imshow('RealSense', disp_image)
-        cv2.waitKey(1000)
+        cv2.waitKey(10)
 
+        #wait for user input before reading next frame
+        '''    
+        temp = input("Type quit to exit, press enter to load next frame\n")
+        if temp == "quit":
+            break
+        '''
            
 
 finally:
