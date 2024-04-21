@@ -1,7 +1,9 @@
 import pyrealsense2 as rs
 import numpy as np
 import cv2
-from aruco_helpers import CreateDetector
+import time
+import math
+from aruco_helpers import CreateDetector, GetRelativeYaw
 from realsense_startup import StartRealSense
 from vector_helpers import Center
 
@@ -57,9 +59,11 @@ try:
         (corners, ids, rejected) = cv2.aruco.ArucoDetector.detectMarkers(detector, arucoimage)
         #print("corners")
         #print(corners)
+        '''
         print("\n\n\nIDs")
         print(ids)
-
+        '''
+        
         # Show images
         ''' Default viewer
         cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
@@ -74,7 +78,7 @@ try:
                 detected = False
         except:
             if len(ids)>= 1:
-                detected = False # If we detect more than 1 aruco, problem, dont mark them
+                detected = False # If we detect more than 1 aruco, problem, dont mark any
             '''
             if len(ids)>1:
                 multiple = True
@@ -85,22 +89,30 @@ try:
 
         if detected:   
             #marking corners and center of aruco
-            markedImage = cv2.aruco.drawDetectedMarkers(arucoimage, corners, ids)
+            
+            markedImage = cv2.aruco.drawDetectedMarkers(arucoimage, corners, ids) #not critical, only for visual
             marker_center = Center(corners)
-            cv2.circle(arucoimage,marker_center,5,(0,0,255), cv2.FILLED)
+            cv2.circle(arucoimage,marker_center,5,(0,0,255), cv2.FILLED) #non critical, only for visual
 
 
-
+            # Get coords of point
             depth = aligned_depth_frame.get_distance(*marker_center)
             POI = [marker_center[0], marker_center[1]]
             depth_point_in_meters_camera_coords = rs.rs2_deproject_pixel_to_point(depth_intrin, POI, depth)
             #Primary example referenced in realsense startup file comment, other example here: https://github.com/IntelRealSense/librealsense/issues/1413
             # Documentation on projection in general here
+            
+            print("\ncorners", corners)
+
+            if len(corners)>0: #if any arucos detected
+                angle = GetRelativeYaw(corners)
+
+                print("\ncenter: ", marker_center)
+                print("\ncoordinate in camera frame: ", depth_point_in_meters_camera_coords) 
+                print("\nangle: ", angle)
 
 
-
-            print("\ncenter", marker_center)
-            print("\ncoordinate in camera frame", depth_point_in_meters_camera_coords) 
+            
             #See datasheet for information on coord system origin, p.97
             #https://dev.intelrealsense.com/docs/intel-realsense-d400-series-product-family-datasheet
 
@@ -116,11 +128,12 @@ try:
         cv2.waitKey(10)
 
         #wait for user input before reading next frame
-        '''    
-        temp = input("Type quit to exit, press enter to load next frame\n")
+           
+        '''temp = input("Type quit to exit, press enter to load next frame\n")
         if temp == "quit":
-            break
-        '''
+            break'''
+        #time.sleep(15)
+        #break
            
 
 finally:
