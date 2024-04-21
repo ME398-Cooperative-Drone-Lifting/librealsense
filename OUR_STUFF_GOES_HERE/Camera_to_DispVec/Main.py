@@ -13,7 +13,7 @@ from vector_helpers import Center
 imageResized = False
 
 try:
-    while True:
+    while True: # eventually this would be a function that the pi calls in its onboard controlling script that grabs a signle frame or 10 frames etc.+
 
         # Wait for a coherent pair of frames: depth and color
         frames = pipeline.wait_for_frames()
@@ -56,13 +56,9 @@ try:
         else:
             arucoimage = color_image
 
+
+
         (corners, ids, rejected) = cv2.aruco.ArucoDetector.detectMarkers(detector, arucoimage)
-        #print("corners")
-        #print(corners)
-        '''
-        print("\n\n\nIDs")
-        print(ids)
-        '''
         
         # Show images
         ''' Default viewer
@@ -70,7 +66,7 @@ try:
         cv2.imshow('RealSense', images)
         '''
 
-        #error handlin for evaling if non type or if list to see if obj detected
+        #error handling for evaling if non type or if list to see if obj detected
         try:
             if (ids!= None): 
                 detected = True
@@ -102,23 +98,19 @@ try:
             #Primary example referenced in realsense startup file comment, other example here: https://github.com/IntelRealSense/librealsense/issues/1413
             # Documentation on projection in general here
             
+            angle = GetRelativeYaw(corners)
+
+            #print("\n\n\nIDs",ids)
             print("\ncorners", corners)
+            print("\ncenter: ", marker_center)
+            print("\ncoordinate in camera frame: ", depth_point_in_meters_camera_coords) 
+            print("\nangle: ", angle)
 
-            if len(corners)>0: #if any arucos detected
-                angle = GetRelativeYaw(corners)
-
-                print("\ncenter: ", marker_center)
-                print("\ncoordinate in camera frame: ", depth_point_in_meters_camera_coords) 
-                print("\nangle: ", angle)
-
-
-            
             #See datasheet for information on coord system origin, p.97
             #https://dev.intelrealsense.com/docs/intel-realsense-d400-series-product-family-datasheet
 
             #displaying aruco marked image
             disp_image = np.hstack((markedImage, depth_colormap))
-
             
         else:
             disp_image = np.hstack((color_image, depth_colormap))
@@ -127,15 +119,13 @@ try:
         cv2.imshow('RealSense', disp_image)
         cv2.waitKey(10)
 
-        #wait for user input before reading next frame
-           
+        #wait for user input before reading next frame 
         '''temp = input("Type quit to exit, press enter to load next frame\n")
         if temp == "quit":
             break'''
         #time.sleep(15)
         #break
            
-
 finally:
 
     # Stop streaming
