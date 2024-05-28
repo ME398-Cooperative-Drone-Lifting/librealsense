@@ -26,9 +26,9 @@ def StartRealSense():
     config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
 
     if device_product_line == 'L500':
-        config.enable_stream(rs.stream.color, 960, 540, rs.format.bgr8, 30)
+        config.enable_stream(rs.stream.infra, 960, 540, rs.format.y8, 30)
     else:
-        config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
+        config.enable_stream(rs.stream.infra, 640, 480, rs.format.y8, 30)
 
     align_to = rs.stream.color #see https://github.com/IntelRealSense/librealsense/issues/2481
     align = rs.align(align_to)

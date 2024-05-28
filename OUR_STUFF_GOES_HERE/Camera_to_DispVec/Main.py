@@ -120,9 +120,9 @@ try:
         cv2.waitKey(10)
 
         #wait for user input before reading next frame 
-        '''temp = input("Type quit to exit, press enter to load next frame\n")
-        if temp == "quit":
-            break'''
+        #temp = input("Type quit to exit, press enter to load next frame\n")
+        #if temp == "quit":
+        #    break
         #time.sleep(15)
         #break
            
