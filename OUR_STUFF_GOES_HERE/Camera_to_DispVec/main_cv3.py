@@ -7,7 +7,7 @@ from aruco_helpers import CreateDetector, GetRelativeYaw
 from realsense_startup import StartRealSense
 from vector_helpers import Center
 
-(arucoDict, arucoParams) = CreateDetector()
+(arucoDict, arucoParams) = CreateDetector() # removed detector object from tuple (see cv3 helper, aruco_helpers_cv3.py)
 (pipeline,align) = StartRealSense()
 
 imageResized = False

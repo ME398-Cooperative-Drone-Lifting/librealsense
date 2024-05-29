@@ -56,8 +56,6 @@ try:
         else:
             arucoimage = color_image
 
-
-
         (corners, ids, rejected) = cv2.aruco.ArucoDetector.detectMarkers(detector, arucoimage)
         
         # Show images
@@ -127,7 +125,5 @@ try:
         #break
            
 finally:
-
     # Stop streaming
     pipeline.stop()
-
