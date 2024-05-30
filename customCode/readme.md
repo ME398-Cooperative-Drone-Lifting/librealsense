@@ -1,6 +1,8 @@
 These scripts are basic examples for tracking ArUco markers with the RealSense D435i on a Raspberry Pi 4 running Ubuntu 22.04.
 
 ## Prerequisites (single-time setup)
+- Connect the Pi to WiFi
+- Update all system programs with `sudo apt-get update && sudo apt-get upgrade`
 - Install `openssh-server` with `sudo apt-get -y install openssh-server` on the Pi 4, assuming WiFi is already set up
 - Install `v4l` utilities with `sudo apt-get -y install v4l-utils`, required to assign udev rules
 - Install the RealSense SDK 2.0 on the Pi 4. Follow the instructions [here](https://github.com/IntelRealSense/librealsense/blob/master/doc/installation.md), taking care not to install the kernel patches.
