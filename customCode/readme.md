@@ -3,7 +3,7 @@ These scripts are basic examples for tracking ArUco markers with the RealSense D
 ## Prerequisites (single-time setup)
 - Install `openssh-server` with `sudo apt-get -y install openssh-server` on the Pi 4, assuming WiFi is already set up
 - Install `v4l` utilities with `sudo apt-get -y install v4l-utils`, required to assign udev rules
-- Install the RealSense SDK 2.0 on the Pi 4. Follow the instructions [here](https://github.com/IntelRealSense/librealsense/blob/master/doc/installation.md), taking care not to install the kernel patches. You may need to install 
+- Install the RealSense SDK 2.0 on the Pi 4. Follow the instructions [here](https://github.com/IntelRealSense/librealsense/blob/master/doc/installation.md), taking care not to install the kernel patches.
 - Install opencv-contrib-python (includes additional libraries) with `pip3 install opencv-contrib-python`
 - Extend the USBfs buffer size to 1000 MB:
     - Add `usbcore.usbfs_memory_mb=1000` to the `cmdline.txt` file in the `/boot/` directory (using sd card adapter)
