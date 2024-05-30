@@ -3,9 +3,9 @@ import numpy as np
 import cv2
 import time
 import math
-from aruco_helpers import CreateDetector, GetRelativeYaw
+from librealsense.customCode.arucoTracking.old.aruco_helpers import CreateDetector, GetRelativeYaw
 from realsense_startup import StartRealSense
-from vector_helpers import Center
+from librealsense.customCode.arucoTracking.vectorHelpers_mult import Center
 
 (arucoDict, arucoParams, detector) = CreateDetector()
 (pipeline,align) = StartRealSense()
@@ -131,8 +131,8 @@ try:
                 disp_image = np.hstack((ir_image, depth_colormap))
 
 
-        cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
-        cv2.imshow('RealSense', disp_image)
+        cv2.namedWindow('RealSense IR/Depth Display', cv2.WINDOW_AUTOSIZE)
+        cv2.imshow('RealSense IR/Depth Display', disp_image)
         cv2.waitKey(10)
            
 finally:

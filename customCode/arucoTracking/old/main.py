@@ -3,9 +3,9 @@ import numpy as np
 import cv2
 import time
 import math
-from aruco_helpers import CreateDetector, GetRelativeYaw
+from librealsense.customCode.arucoTracking.old.aruco_helpers import CreateDetector, GetRelativeYaw
 from realsense_startup import StartRealSense
-from vector_helpers import Center
+from librealsense.customCode.arucoTracking.vectorHelpers_mult import Center
 
 (arucoDict, arucoParams, detector) = CreateDetector()
 (pipeline,align) = StartRealSense()
