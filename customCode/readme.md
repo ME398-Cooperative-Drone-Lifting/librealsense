@@ -7,8 +7,15 @@ These scripts are basic examples for tracking ArUco markers with the RealSense D
 - Install opencv-contrib-python (includes additional libraries) with `pip3 install opencv-contrib-python`
 - Extend the USBfs buffer size to 1000 MB:
     - Add `usbcore.usbfs_memory_mb=1000` to the `cmdline.txt` file in the `/boot/` directory (using sd card adapter)
+
+## Execution
 - `ssh` into the Pi with the following argument:
     - `ssh -X pi@<ip_address>` (replace `<ip_address>` with the Pi's IP address)
 - `cd` into the appropriate directory
 - Set up the RealSense display with `export DISPLAY=:0`
 - Run the script with `python3 mainIR_mult.py`
+
+## Troubleshooting
+- If the connection times out, unplug the RealSense camera, wait 3-5 seconds, and then replug
+- The scripts will *likely* work if `rs-enumerate-devices` yields an immediate response
+    - If `rs-enumerate-devices` hangs or takes more than a second to execute, unplug the camera and try again
