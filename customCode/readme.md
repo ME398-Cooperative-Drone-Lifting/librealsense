@@ -4,8 +4,9 @@ These scripts are basic examples for tracking ArUco markers with the RealSense D
 - Connect the Pi to WiFi
 - Update all system programs with `sudo apt-get update && sudo apt-get upgrade`
 - Install Python's `pip` module with `sudo apt-get install -y python3-pip`
-- Install `openssh-server` with `sudo apt-get -y install openssh-server` on the Pi 4, assuming WiFi is already set up
-- Install `v4l` utilities with `sudo apt-get -y install v4l-utils`, required to assign udev rules
+- Install `openssh-server` with `sudo apt-get -y install openssh-server` on the Pi 4
+    - Once the SSH server is set up, check the IP address in Settings/WiFi and write it down for recurring use in the execution section
+- Install `video4linux` drivers with `sudo apt-get -y install v4l-utils`, required to assign udev rules
 - Install the RealSense SDK 2.0 on the Pi 4. Follow the instructions [here](https://github.com/IntelRealSense/librealsense/blob/master/doc/installation.md), taking care not to install the kernel patches.
 - Install opencv-contrib-python (includes additional libraries) with `pip3 install opencv-contrib-python`
 - Install the Python RealSense bindings with `pip3 install pyrealsense2`
@@ -15,7 +16,7 @@ These scripts are basic examples for tracking ArUco markers with the RealSense D
 ## Execution (must be repeated each time)
 - `ssh` into the Pi with the following argument:
     - `ssh -X pi@<ip_address>` (replace `<ip_address>` with the Pi's IP address)
-- `cd` into the appropriate directory
+- `cd` into `librealsense/customCode/arucoTracking/`
 - Set up the RealSense display with `export DISPLAY=:0`
 - Run the script with `python3 mainIR_mult.py`
 
