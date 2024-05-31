@@ -1,6 +1,6 @@
 These scripts are basic examples for tracking ArUco markers with the RealSense D435i on a Raspberry Pi 4 running Ubuntu 22.04.
 
-## Prerequisites (single-time setup)
+## Prerequisites (single-time setup) [estimated time: 1-1.5 hours]
 - Connect the Pi to WiFi
 - Update all system programs with `sudo apt-get update && sudo apt-get upgrade`
 - Install Python's `pip` module with `sudo apt-get install -y python3-pip`
