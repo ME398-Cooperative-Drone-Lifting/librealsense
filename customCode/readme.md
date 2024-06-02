@@ -4,6 +4,9 @@
 - Connect the Pi to WiFi
 - Update all system programs with `sudo apt-get update && sudo apt-get upgrade`
 - Install Python's `pip` module with `sudo apt-get install -y python3-pip`
+- Install Python 3.7 with the following steps:
+    - `sudo add-apt-repository ppa:deadsnakes/ppa`
+    - `sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.7 1`
 - Install `openssh-server` with `sudo apt-get -y install openssh-server` on the Pi 4
     - Once the SSH server is set up, check the IP address in Settings/WiFi and write it down for recurring use in the execution section
 - Install `video4linux` drivers with `sudo apt-get -y install v4l-utils`, required to assign udev rules
