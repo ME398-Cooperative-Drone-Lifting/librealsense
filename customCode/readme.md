@@ -1,6 +1,6 @@
-These scripts are basic examples for tracking ArUco markers with the RealSense D435i on a Raspberry Pi 4 running Ubuntu 22.04.
-
+# To operate the RealSense camera in this framework:
 ## Prerequisites (single-time setup) [estimated time: 1-1.5 hours]
+- Install Ubuntu 22.04 on a Raspberry Pi 4B (we have 8 GB RAM, your mileage may vary with less)
 - Connect the Pi to WiFi
 - Update all system programs with `sudo apt-get update && sudo apt-get upgrade`
 - Install Python's `pip` module with `sudo apt-get install -y python3-pip`
@@ -18,9 +18,12 @@ These scripts are basic examples for tracking ArUco markers with the RealSense D
     - `ssh -X pi@<ip_address>` (replace `<ip_address>` with the Pi's IP address)
 - `cd` into `librealsense/customCode/arucoTracking/`
 - Set up the RealSense display with `export DISPLAY=:0`
-- Run the script with `python3 mainIR_mult.py`
+- Run `rs-enumerate-devices` to prime the RealSense USB buffer (mysterious, please do not ask why this works)
+- Run the DroneKit code OR directly run the RealSense script with `python3 arucoTrack.py`
+- If necessary, close the script with CTRL+C
+- If you want to run either script again, you *must* run `rs-enumerate-devices` again before execution!
 
 ## Troubleshooting
-- If the connection times out, unplug the RealSense camera, wait 3-5 seconds, and then replug
+- If the connection times out, unplug the RealSense camera, wait 3-5 seconds, and then replug in the other USB 3.0 port
 - The scripts will *likely* work if `rs-enumerate-devices` yields an immediate response
-    - If `rs-enumerate-devices` hangs or takes more than a second to execute, unplug the camera and try again
+    - If `rs-enumerate-devices` hangs or takes more than 2 seconds to execute, unplug the camera and try again
