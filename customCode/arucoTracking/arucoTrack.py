@@ -1,3 +1,6 @@
+'''
+TO USE THIS CODE, GET arucoTrack() FUNCTION INTO YOUR SCRIPT!
+'''
 import pyrealsense2 as rs
 import numpy as np
 import cv2
@@ -67,7 +70,7 @@ def display_image(disp_image: np.ndarray) -> None:
     cv2.imshow('RealSense', disp_image)
     cv2.waitKey(10)
 
-def main() -> Any: # figure out what kind of outputs we want...float locations of centrepoints?
+def arucoTrack() -> Any: # figure out what kind of outputs we want...float locations of centrepoints?
     (arucoDict, arucoParams, detector) = CreateDetector()
     (pipeline,align) = StartRealSense()
 
@@ -136,10 +139,13 @@ def main() -> Any: # figure out what kind of outputs we want...float locations o
             stepCounter += 1
 
             # return vals of interest? log them somehow? TBD!
-               
+
     finally:
         pipeline.stop()
         print('\nRealSense camera deactivated, pipeline stopped...')
 
+# executes arucoTrack if the code is being run directly, otherwise the function can be imported
 if __name__ == "__main__":
-    main()
+    import sys
+    print('Python version:', sys.version, '\n')
+    arucoTrack()
